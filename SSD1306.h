@@ -20,18 +20,19 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-#include <string.h>
 #include <stdio.h>
+#include <string.h>
 
-#define FONT_3x5                0
-#define FONT_5x7                1
-#define INVERSION_OFF           0
-#define INVERSION_ON            1
-#define TIME_INTERVAL_SECOND    0
-#define TIME_INTERVAL_MINUTE    1
-#define TIME_INTERVAL_HOUR      2
-#define GRID_OFF                0
-#define GRID_ON                 1
+
+#define FONT_3x5             0  //Шрифт 3x5
+#define FONT_5x7             1  //Шрифт 5x7
+#define INVERSION_OFF        0  //Инверсия выключена
+#define INVERSION_ON         1  //Инверсия включена
+#define TIME_INTERVAL_SECOND 0  //Для графика. Интервал в секундах
+#define TIME_INTERVAL_MINUTE 1  //Для графика. Интервал в минутах
+#define TIME_INTERVAL_HOUR   2  //Для графика. Интервал в часах
+#define GRID_OFF             0  //Для графика. Сетка выключена
+#define GRID_ON              1  //Для графика. Сетка включена
 
 /*========== Выберите используемый дисплей ==========*/
 // #define SSD1306_64x32
@@ -45,10 +46,13 @@
 
 /*========== Укажите разрешение дисплея ==========*/
 #define SSD1306_WIDTH  128  // Количество точек по горизонтали
-#define SSD1306_HEIGHT 64   // Количество точек по вертикали
+#define SSD1306_HEIGHT 32   // Количество точек по вертикали
 /*========== Укажите разрешение дисплея ==========*/
 
+/*========== Укажите адрес дисплея на шине I2C и используемый I2C ==========*/
 #define SSD1306_ADDR 0x3C  // Адрес SSD1306 на шине I2C
+#define I2C_USE      I2C1  // I2C_TypeDef* I2C
+/*========== Укажите адрес дисплея на шине I2C и используемый I2C ==========*/
 
 #define SSD1306_COLOR_BLACK 0x00  // Закрасить пиксель черным цветом (Выключить пиксель)
 #define SSD1306_COLOR_WHITE 0x01  // Закрасить пиксель белым цветом (Включить пиксель)
@@ -101,21 +105,21 @@ typedef struct {
 void SSD1306_logo_demonstration(void);
 
 void SSD1306_WriteCommand(uint8_t data);
-void SSD1306_WriteData(uint8_t* data, uint16_t count);
+void SSD1306_WriteData(uint8_t *data, uint16_t count);
 uint8_t SSD1306_Init(void);
 void SSD1306_Update(void);
 void SSD1306_Clean_Frame_buffer(void);
 void SSD1306_Fill(uint8_t color);
 void SSD1306_Draw_pixel(uint16_t x, uint16_t y, uint8_t color);
 void SSD1306_Contrast(uint8_t value);
-void SSD1306_Decode_UTF8(uint8_t x, uint8_t y, uint8_t font, bool inversion, char* tx_buffer);
+void SSD1306_Decode_UTF8(uint8_t x, uint8_t y, uint8_t font, bool inversion, char *tx_buffer);
 void SSD1306_Print_symbol_3x5(uint8_t x, uint8_t y, uint16_t symbol, uint8_t inversion);
 void SSD1306_Print_symbol_5x7(uint8_t x, uint8_t y, uint16_t symbol, uint8_t inversion);
-void SSD1306_DrawBitmap(const uint8_t* bitmap, int8_t x, int8_t y, int8_t w, int8_t h);
+void SSD1306_DrawBitmap(const uint8_t *bitmap, int8_t x, int8_t y, int8_t w, int8_t h);
 void SSD1306_Inversion(int i);
 uint8_t SSD1306_Value_for_Plot(int y_min, int y_max, float value);
 void SSD1306_Fill_the_array_Plot(uint8_t *counter, uint8_t *array, uint8_t size_array, bool *array_is_full, uint8_t value);
-void SSD1306_Generate_a_Graph(uint8_t *counter, uint8_t *array, uint8_t size_array, bool * array_is_full, int y_min, int y_max, uint8_t x_grid_time, uint8_t time_interval,bool grid);
+void SSD1306_Generate_a_Graph(uint8_t *counter, uint8_t *array, uint8_t size_array, bool *array_is_full, int y_min, int y_max, uint8_t x_grid_time, uint8_t time_interval, bool grid);
 void SSD1306_Draw_line(uint8_t x_start, uint8_t y_start, uint8_t x_end, uint8_t y_end, uint8_t color);
 void SSD1306_Draw_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t color);
 void SSD1306_Draw_rectangle_filled(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t color);
